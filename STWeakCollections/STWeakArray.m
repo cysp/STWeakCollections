@@ -168,7 +168,6 @@
 #pragma mark - NSFastEnumeration
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
-	[self compact];
 	state->mutationsPtr = &_mutationsCount;
 	state->itemsPtr = (id *)_weakObjects;
 	return _weakObjectsCount;
