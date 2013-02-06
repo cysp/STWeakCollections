@@ -1,5 +1,5 @@
 //
-//  STWeakCollections.h
+//  STWeakArray.h
 //  STWeakCollections
 //
 //  Created by Scott Talbot on 23/01/13.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface STWeakMutableArray : NSMutableArray
+@interface STMutableWeakArray : NSMutableArray
 
 @end

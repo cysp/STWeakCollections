@@ -14,7 +14,7 @@
 
 - (void)testDegenerate {
 	{
-		STWeakMutableArray * const array = [STWeakMutableArray arrayWithCapacity:0];
+		STMutableWeakArray * const array = [STMutableWeakArray arrayWithCapacity:0];
 		@autoreleasepool {
 			id foo = [[NSObject alloc] init];
 			[array addObject:foo];
@@ -29,7 +29,7 @@
 	}
 
 	{
-		STWeakMutableArray * const array = [STWeakMutableArray arrayWithCapacity:0];
+		STMutableWeakArray * const array = [STMutableWeakArray arrayWithCapacity:0];
 
 		id foo = [[NSObject alloc] init];
 		[array addObject:foo];
@@ -43,7 +43,7 @@
 	}
 
 	{
-		STWeakMutableArray * const array = [STWeakMutableArray arrayWithCapacity:0];
+		STMutableWeakArray * const array = [STMutableWeakArray arrayWithCapacity:0];
 		@autoreleasepool {
 			id foo = [[NSObject alloc] init];
 			[array addObject:foo];
@@ -61,7 +61,7 @@
 	}
 
 	{
-		STWeakMutableArray * const array = [STWeakMutableArray arrayWithCapacity:0];
+		STMutableWeakArray * const array = [STMutableWeakArray arrayWithCapacity:0];
 
 		id foo = [[NSObject alloc] init];
 		[array addObject:foo];
@@ -75,7 +75,7 @@
 	}
 
 	{
-		STWeakMutableArray * const array = [STWeakMutableArray arrayWithCapacity:0];
+		STMutableWeakArray * const array = [STMutableWeakArray arrayWithCapacity:0];
 
 		id foo = [[NSObject alloc] init];
 		[array addObject:foo];

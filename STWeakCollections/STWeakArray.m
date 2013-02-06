@@ -10,18 +10,18 @@
 #import <objc/runtime.h>
 
 
-@interface STWeakMutableArray ()
+@interface STMutableWeakArray ()
 - (void)checkIndex:(NSUInteger)index count:(NSUInteger)count;
 - (void)checkIndex:(NSUInteger)index count:(NSUInteger)count forInsertion:(BOOL)forInsertion;
 - (void)compact;
 - (void)resizeToSize:(NSUInteger)size;
 @end
 
-@implementation STWeakMutableArray {
+@implementation STMutableWeakArray {
 @private
 	unsigned long _mutationsCount;
 	id *_weakObjects;
-	NSUInteger _weakObjectsAlloced;
+	NSUInteger _weakObjectsCapacity;
 	NSUInteger _weakObjectsCount;
 }
 
@@ -29,11 +29,11 @@
     return [self initWithCapacity:0];
 }
 
-- (id)initWithCapacity:(NSUInteger)numItems {
+- (id)initWithCapacity:(NSUInteger)capacity {
 	if ((self = [super init])) {
-		if (numItems) {
-			_weakObjects = calloc(numItems, sizeof(void *));
-			_weakObjectsAlloced = numItems;
+		if (capacity) {
+			_weakObjects = calloc(capacity, sizeof(void *));
+			_weakObjectsCapacity = capacity;
 		}
     }
     return self;
@@ -64,8 +64,8 @@
 
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
 	[self checkIndex:index count:_weakObjectsCount forInsertion:YES];
-	if (_weakObjectsCount + 1 > _weakObjectsAlloced) {
-		[self resizeToSize:(_weakObjectsAlloced * 2) ?: 16];
+	if (_weakObjectsCount + 1 > _weakObjectsCapacity) {
+		[self resizeToSize:(_weakObjectsCapacity * 2) ?: 16];
 	}
 	++_mutationsCount;
 	for (NSUInteger i = _weakObjectsCount; i > index; --i) {
@@ -161,7 +161,7 @@
 		}
 	}
 	_weakObjects = weakObjects;
-	_weakObjectsAlloced = size;
+	_weakObjectsCapacity = size;
 }
 
 
