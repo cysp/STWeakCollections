@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C57750A16F5A21F00ADD57C /* STCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C57750916F5A21F00ADD57C /* STCollection.m */; };
 		2CFF4D0D16AFF7FB00A9E2F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFF4D0C16AFF7FB00A9E2F5 /* Foundation.framework */; };
 		2CFF4D1216AFF7FB00A9E2F5 /* STWeakArray.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CFF4D1116AFF7FB00A9E2F5 /* STWeakArray.h */; };
 		2CFF4D1416AFF7FB00A9E2F5 /* STWeakArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF4D1316AFF7FB00A9E2F5 /* STWeakArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -41,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C57750816F5A21F00ADD57C /* STCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCollection.h; sourceTree = "<group>"; };
+		2C57750916F5A21F00ADD57C /* STCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCollection.m; sourceTree = "<group>"; };
 		2CFF4D0916AFF7FB00A9E2F5 /* libSTWeakCollections.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTWeakCollections.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFF4D0C16AFF7FB00A9E2F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CFF4D1116AFF7FB00A9E2F5 /* STWeakArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STWeakArray.h; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 		2CFF4D0E16AFF7FB00A9E2F5 /* STWeakCollections */ = {
 			isa = PBXGroup;
 			children = (
+				2C57750816F5A21F00ADD57C /* STCollection.h */,
+				2C57750916F5A21F00ADD57C /* STCollection.m */,
 				2CFF4D1116AFF7FB00A9E2F5 /* STWeakArray.h */,
 				2CFF4D1316AFF7FB00A9E2F5 /* STWeakArray.m */,
 			);
@@ -222,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CFF4D1416AFF7FB00A9E2F5 /* STWeakArray.m in Sources */,
+				2C57750A16F5A21F00ADD57C /* STCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +368,7 @@
 				2CFF4D3016AFF7FB00A9E2F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CFF4D3116AFF7FB00A9E2F5 /* Build configuration list for PBXNativeTarget "STWeakCollectionsTests" */ = {
 			isa = XCConfigurationList;
@@ -370,6 +377,7 @@
 				2CFF4D3316AFF7FB00A9E2F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

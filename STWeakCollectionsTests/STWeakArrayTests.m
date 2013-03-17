@@ -10,6 +10,14 @@
 #import "STWeakArray.h"
 
 
+@protocol STWeakArrayTestProtocol <NSObject>
+@end
+@interface STWeakArrayTestObject : NSObject <STWeakArrayTestProtocol>
+@end
+@implementation STWeakArrayTestObject
+@end
+
+
 @implementation STWeakArrayTests
 
 - (void)testDegenerate {
@@ -85,6 +93,30 @@
 
 		[array removeObjectsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
 
+		STAssertEquals([array count], (NSUInteger)0, @"", nil);
+	}
+}
+
+- (void)testProtocolConformanceAssertion {
+	{
+		STMutableWeakArray * const array = [[STMutableWeakArray alloc] initWithCapacity:0 options:@{
+			STCollectionOptionRequiredProtocols: @[ @protocol(STWeakArrayTestProtocol) ],
+		}];
+
+		id foo = [[STWeakArrayTestObject alloc] init];
+		[array addObject:foo];
+		STAssertEquals([array count], (NSUInteger)1, @"", nil);
+		STAssertNotNil(array[0], @"", nil);
+		STAssertEquals(array[0], foo, @"", nil);
+	}
+
+	{
+		STMutableWeakArray * const array = [[STMutableWeakArray alloc] initWithCapacity:0 options:@{
+			STCollectionOptionRequiredProtocols: @[ @protocol(STWeakArrayTestProtocol) ],
+		}];
+
+		id foo = [[NSObject alloc] init];
+		STAssertThrows([array addObject:foo], @"", nil);
 		STAssertEquals([array count], (NSUInteger)0, @"", nil);
 	}
 }

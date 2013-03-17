@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "STCollection.h"
 
 
 @interface STMutableWeakArray : NSMutableArray
+
+- (id)initWithCapacity:(NSUInteger)capacity options:(NSDictionary *)options;
 
 @end

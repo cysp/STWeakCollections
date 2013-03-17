@@ -10,9 +10,13 @@
 #import <objc/runtime.h>
 
 
+typedef BOOL(^STCollectionElementValidator)(id obj);
+
+
 @interface STMutableWeakArray ()
 - (void)checkIndex:(NSUInteger)index count:(NSUInteger)count;
 - (void)checkIndex:(NSUInteger)index count:(NSUInteger)count forInsertion:(BOOL)forInsertion;
+- (void)checkObject:(id)obj;
 - (void)compact;
 - (void)resizeToSize:(NSUInteger)size;
 @end
@@ -23,6 +27,7 @@
 	id *_weakObjects;
 	NSUInteger _weakObjectsCapacity;
 	NSUInteger _weakObjectsCount;
+	STCollectionElementValidator _validator;
 }
 
 - (id)init {
@@ -48,6 +53,21 @@
     return self;
 }
 
+- (id)initWithCapacity:(NSUInteger)capacity options:(NSDictionary *)options {
+	if ((self = [self initWithCapacity:capacity])) {
+		_validator = [^(id obj) {
+			for (Protocol *protocol in options[STCollectionOptionRequiredProtocols]) {
+				if (![obj conformsToProtocol:protocol]) {
+					return NO;
+				}
+			}
+			return YES;
+		} copy];
+	}
+	return self;
+}
+
+
 - (void)dealloc {
 	free(_weakObjects), _weakObjects = NULL;
 	[super dealloc];
@@ -64,6 +84,7 @@
 
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
 	[self checkIndex:index count:_weakObjectsCount forInsertion:YES];
+	[self checkObject:anObject];
 	if (_weakObjectsCount + 1 > _weakObjectsCapacity) {
 		[self resizeToSize:(_weakObjectsCapacity * 2) ?: 16];
 	}
@@ -81,6 +102,7 @@
 
 - (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
 	[self checkIndex:index count:_weakObjectsCount];
+	[self checkObject:anObject];
 	++_mutationsCount;
 	id *objectAddress = (id *)&_weakObjects[index];
 	objc_storeWeak(objectAddress, anObject);
@@ -139,6 +161,13 @@
 		} else {
 			@throw [NSException exceptionWithName:NSRangeException reason:[NSString stringWithFormat:@"index %u beyond bounds for empty array", index] userInfo:nil];
 		}
+	}
+}
+
+
+- (void)checkObject:(id)obj {
+	if (_validator && !_validator(obj)) {
+		@throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Object failed validation" userInfo:nil];
 	}
 }
 
