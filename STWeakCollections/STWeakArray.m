@@ -160,6 +160,7 @@
 			objc_storeWeak(objectAddress, nil);
 		}
 	}
+	free(_weakObjects);
 	_weakObjects = weakObjects;
 	_weakObjectsCapacity = size;
 }
