@@ -157,9 +157,9 @@ typedef BOOL(^STCollectionElementValidator)(id obj);
 	NSUInteger upperBound = forInsertion ? count + 1 : count;
 	if (index >= upperBound) {
 		if (count) {
-			@throw [NSException exceptionWithName:NSRangeException reason:[NSString stringWithFormat:@"index %u beyond bounds [0 .. %u]", index, count-1] userInfo:nil];
+			@throw [NSException exceptionWithName:NSRangeException reason:[NSString stringWithFormat:@"index %lu beyond bounds [0 .. %lu]", (unsigned long)index, (unsigned long)count-1] userInfo:nil];
 		} else {
-			@throw [NSException exceptionWithName:NSRangeException reason:[NSString stringWithFormat:@"index %u beyond bounds for empty array", index] userInfo:nil];
+			@throw [NSException exceptionWithName:NSRangeException reason:[NSString stringWithFormat:@"index %lu beyond bounds for empty array", (unsigned long)index] userInfo:nil];
 		}
 	}
 }
