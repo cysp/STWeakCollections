@@ -75,6 +75,7 @@ typedef BOOL(^STCollectionElementValidator)(id obj);
 
 
 - (NSUInteger)count {
+	[self compact];
 	return _weakObjectsCount;
 }
 

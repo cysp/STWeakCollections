@@ -32,8 +32,7 @@
 			STAssertTrue([array containsObject:foo], @"", nil);
 		}
 
-		STAssertEquals([array count], (NSUInteger)1, @"", nil);
-		STAssertNil(array[0], @"", nil);
+		STAssertEquals([array count], (NSUInteger)0, @"", nil);
 	}
 
 	{
@@ -59,11 +58,6 @@
 			STAssertNotNil(array[0], @"", nil);
 			STAssertEquals(array[0], foo, @"", nil);
 		}
-
-		STAssertEquals([array count], (NSUInteger)1, @"", nil);
-		STAssertNil(array[0], @"", nil);
-
-		[array removeObjectAtIndex:0];
 
 		STAssertEquals([array count], (NSUInteger)0, @"", nil);
 	}
