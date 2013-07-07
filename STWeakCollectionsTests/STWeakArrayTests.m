@@ -91,6 +91,35 @@
 	}
 }
 
+- (void)testEnumeration {
+	{
+		STMutableWeakArray * const array = [STMutableWeakArray arrayWithCapacity:0];
+		@autoreleasepool {
+			id foo = [[NSObject alloc] init];
+			[array addObject:foo];
+			STAssertEquals([array count], (NSUInteger)1, @"", nil);
+
+			{
+				NSUInteger __block count = 0;
+				[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+					++count;
+				}];
+				STAssertEquals(count, 1UL, @"", nil);
+			}
+		}
+
+		{
+			NSUInteger __block count = 0;
+			[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+				++count;
+			}];
+			STAssertEquals(count, 0UL, @"", nil);
+		}
+
+		STAssertEquals([array count], (NSUInteger)0, @"", nil);
+	}
+}
+
 - (void)testProtocolConformanceAssertion {
 	{
 		STMutableWeakArray * const array = [[STMutableWeakArray alloc] initWithCapacity:0 options:@{

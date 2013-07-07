@@ -199,9 +199,15 @@ typedef BOOL(^STCollectionElementValidator)(id obj);
 #pragma mark - NSFastEnumeration
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
-	state->mutationsPtr = &_mutationsCount;
-	state->itemsPtr = (id *)_weakObjects;
-	return _weakObjectsCount;
+	if (state->state == 0) {
+		state->mutationsPtr = &_mutationsCount;
+		state->itemsPtr = (id *)_weakObjects;
+	}
+	NSUInteger const nObjectsAlreadyReturned = state->state;
+	NSUInteger nObjectsToReturn = MAX(0, MIN(len, _weakObjectsCount - nObjectsAlreadyReturned));
+	memcpy(buffer, &_weakObjects[state->state], nObjectsToReturn * sizeof(id *));
+	state->state += nObjectsToReturn;
+	return nObjectsToReturn;
 }
 
 @end
