@@ -118,6 +118,33 @@
 
 		STAssertEquals([array count], (NSUInteger)0, @"", nil);
 	}
+	{
+		STMutableWeakArray * const array = [STMutableWeakArray arrayWithCapacity:17];
+		@autoreleasepool {
+			for (int i = 1; i <= 17; ++i) {
+				[array addObject:@(i)];
+			}
+			STAssertEquals([array count], (NSUInteger)17, @"", nil);
+
+			{
+				NSUInteger __block sum = 0;
+				[array enumerateObjectsUsingBlock:^(NSNumber *number, NSUInteger idx, BOOL *stop) {
+					sum += [number unsignedIntegerValue];
+				}];
+				STAssertEquals(sum, 153UL, @"", nil);
+			}
+		}
+
+		{
+			NSUInteger __block sum = 0;
+			[array enumerateObjectsUsingBlock:^(NSNumber *number, NSUInteger idx, BOOL *stop) {
+				sum += [number unsignedIntegerValue];
+			}];
+			STAssertEquals(sum, 153UL, @"", nil);
+		}
+
+		STAssertEquals([array count], (NSUInteger)17, @"", nil);
+	}
 }
 
 - (void)testProtocolConformanceAssertion {
